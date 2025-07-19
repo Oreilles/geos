@@ -4091,6 +4091,22 @@ extern "C" {
         });
     }
 
+    void**
+    GEOSSTRtree_query_results_r(GEOSContextHandle_t extHandle,
+                        GEOSSTRtree* tree,
+                        const Geometry* g,
+                        unsigned int * nresults)
+    {
+        return execute(extHandle, [&]() {
+            std::vector<void*> results;
+            tree->query(g->getEnvelopeInternal(), results);
+            void** results_array = static_cast<void**>(malloc(results.size() * sizeof(void*)));
+            std::memcpy(results_array, results.data(), results.size() * sizeof(void*));
+            *nresults = static_cast<unsigned int>(results.size());
+            return results_array;
+        });
+    }
+
     const GEOSGeometry*
     GEOSSTRtree_nearest_r(GEOSContextHandle_t extHandle,
                           GEOSSTRtree* tree,

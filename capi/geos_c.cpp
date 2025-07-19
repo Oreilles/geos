@@ -1829,6 +1829,14 @@ extern "C" {
         GEOSSTRtree_query_r(handle, tree, g, cb, userdata);
     }
 
+    void**
+    GEOSSTRtree_query_results(GEOSSTRtree* tree,
+                      const geos::geom::Geometry* g,
+                      unsigned int * nresults)
+    {
+        return GEOSSTRtree_query_results_r(handle, tree, g, nresults);
+    }
+
     const GEOSGeometry*
     GEOSSTRtree_nearest(GEOSSTRtree* tree,
                         const geos::geom::Geometry* g)

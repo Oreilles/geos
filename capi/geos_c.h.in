@@ -1498,6 +1498,13 @@ extern void GEOS_DLL GEOSSTRtree_query_r(
     GEOSQueryCallback callback,
     void *userdata);
 
+/** \see GEOSSTRtree_query_results */
+extern void** GEOS_DLL GEOSSTRtree_query_results_r(
+    GEOSContextHandle_t handle,
+    GEOSSTRtree *tree,
+    const GEOSGeometry *g,
+    unsigned int * nresults);
+
 /** \see GEOSSTRtree_nearest */
 extern const GEOSGeometry GEOS_DLL *GEOSSTRtree_nearest_r(
     GEOSContextHandle_t handle,
@@ -5911,6 +5918,23 @@ extern void GEOS_DLL GEOSSTRtree_query(
     const GEOSGeometry *g,
     GEOSQueryCallback callback,
     void *userdata);
+
+/**
+* Query a \ref GEOSSTRtree for items intersecting a specified envelope.
+* The tree will automatically be constructed if necessary, after which
+* no more items may be added.
+*
+* \param tree the \ref GEOSSTRtree to search
+* \param g a GEOSGeomety from which a query envelope will be extracted
+* \param nresults A pointer to a variable that will be filled with the
+*        size of the output array.
+*
+* \since 3.2
+*/
+extern void GEOS_DLL **GEOSSTRtree_query_results(
+    GEOSSTRtree *tree,
+    const GEOSGeometry *g,
+    unsigned int * nresults);
 
 /**
 * Returns the nearest item in the \ref GEOSSTRtree to the supplied geometry.
